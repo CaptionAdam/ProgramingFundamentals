@@ -11,6 +11,7 @@ Program (All Parts): Take input in exact dollars and output change in amount of 
 
 int main()
 {
+    //Variable Declaration
     int iDollars = 0;
     int iRemainder = 0;
     int i20Bills = 20;
@@ -32,10 +33,8 @@ int main()
     i5Bills = iRemainder/5;
     iRemainder = iRemainder%5;
     //printf("Remainder: %i", iRemainder); //Print Remainder to Check
-    //Count1s & Store Remainder
-    i1Bills = iRemainder/1;
-    iRemainder = iRemainder%1;
-    //printf("Remainder: %i", iRemainder); //Print Remainder to Check
+    //Set 1s to remainder
+    i1Bills = iRemainder;
     printf("\n\n  $20 Bills: %i\n\n  $10 Bills: %i\n\n  $5 Bills: %i\n\n  1$ Bills: %i\n\n", i20Bills, i10Bills, i5Bills, i1Bills); //Print Bill Amounts
     
     return 0;
