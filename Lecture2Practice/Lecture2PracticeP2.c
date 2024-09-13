@@ -1,8 +1,8 @@
 /******************************************************************************
 
 Program: Lecture 2 Practice Part 2
-Coder:
-Date:
+Coder: Adam Kuefler
+Date: 12/09/2024(dd/mm/yyyy)
 Purpose: Assortment of activities appropriate to Lecture 2
 
 *******************************************************************************/
@@ -46,7 +46,7 @@ int main()
     
     
     //Now, print exactly the phrase "I 110% love pie!" (including the quotation marks) to terminal.
-    printf("\"I 110%% Love Pie !\"\n");
+    printf("\"I 110%% Love Pie!\"\n");
     
     
     

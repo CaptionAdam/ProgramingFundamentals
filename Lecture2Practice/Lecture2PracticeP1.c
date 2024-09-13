@@ -1,8 +1,8 @@
 /******************************************************************************
 
 Program: Lecture 2 Practice Part 1
-Coder:
-Date:
+Coder: Adam Kuefler
+Date: 12/09/2024(dd/mm/yyyy)
 Purpose: Assortment of activities appropriate to Lecture 2
 
 *******************************************************************************/

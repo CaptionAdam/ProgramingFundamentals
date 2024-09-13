@@ -24,10 +24,10 @@ int main()
 
     //We can also display that variable value to the terminal.
     
-    printf("%i", iNumber2);  //displays a %i integer value, indicated after the comma
+    //printf("%i", iNumber2);  //displays a %i integer value, indicated after the comma
     //Decimal (base 10) number system is the default for displaying an integer in C
     
-    printf("\n What is the Answe to Life, The Universe, And Everything \n %i" , iTheAnswer );
+    printf("\nWhat is the Answe to Life, The Universe, And Everything\n%i\n" , iTheAnswer );
     
     //Now, you try declaring a variable.  Give it a descriptive name, and display it on screen
     
