@@ -15,6 +15,7 @@ int main()
     int iDecimal = 0;
     int iProduct = 0;
     int iNext = 0;
+    int iOutput = 0;
     int iOctal[5];
 
     //Take User Input
@@ -43,8 +44,12 @@ int main()
     iProduct = iNext / 8;
     printf("%6d/8 = %-4d With a Remainder of %d.\t     ===> %d%d%d%d%d\n\n", iNext, iProduct, iOctal[4], iOctal[4], iOctal[3], iOctal[2], iOctal[1], iOctal[0]);
 
+    //Collect all Octal Digets into Single Interger
+    iOutput = iOctal[0] + (iOctal[1] * 10) + (iOctal[2] * 100) + (iOctal[3] * 1000) + (iOctal[4] * 10000) + (iOctal[5] * 100000);
+    
     //Final Output
-    printf("Octal = %d%d%d%d%d\n\n", iOctal[4], iOctal[3], iOctal[2], iOctal[1], iOctal[0]);
+    //printf("Octal = %d%d%d%d%d\n", iOctal[4], iOctal[3], iOctal[2], iOctal[1], iOctal[0]); //Replaced For Cleaner Output
+    printf("%d Decimal = %d Octal\n\n", iDecimal, iOutput);
 
     return 0;
 }

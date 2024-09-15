@@ -6,6 +6,8 @@ Date: 12/09/2024(dd/mm/yyyy)
 Purpose: Take #'s 1-16 , align in grid, and sum rows/colums/diaginals
 
 *******************************************************************************/
+  
+// 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 Easy Copy Input
 
 #include <stdio.h>
 
@@ -38,11 +40,13 @@ int main()
     int Col4 = 0;
     int Diag1 = 0;
     int Diag2 = 0;
-
+ 
     //User Input
     printf("Input Numbers 1-16 in any order\n");
     scanf("%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", &A1, &A2, &A3, &A4, &B1, &B2, &B3, &B4, &C1, &C2, &C3, &C4, &D1, &D2, &D3, &D4); //Store Input in Variables
+    //printf("\n,-------------------,\n|%3d |%3d |%3d |%3d |\n|-------------------|\n|%3d |%3d |%3d |%3d |\n|-------------------|\n|%3d |%3d |%3d |%3d |\n|-------------------|\n|%3d |%3d |%3d |%3d |\n'-------------------'", A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4); //Print Variables In Grid
     printf("\n\n%3d %3d %3d %3d\n\n%3d %3d %3d %3d\n\n%3d %3d %3d %3d\n\n%3d %3d %3d %3d\n", A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4, D1, D2, D3, D4); //Print Variables In Grid
+
 
     //Calculation Block
     //Row Sums
