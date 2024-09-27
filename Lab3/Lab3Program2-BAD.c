@@ -1,13 +1,36 @@
+/******************************************************************************
+
+Program: Lab 3 Program 2
+Coder: Adam Kuefler
+Date: 26/09/2024(dd/mm/yyyy)
+Purpose: Determine What Date Occures First(LeastFunctionalLines)
+
+*******************************************************************************/
+
 #include <stdio.h>
-int iDate1[3];
-int iDate1OUT;
-int iDate2[3];
-int iDate2OUT;
+
+//VariableDeclaration
+int iDate[2][4];
+
 int main() {
-    printf("Enter first date (DD/MM/YYYY): "); scanf("%d/%d/%d", &iDate1[0], &iDate1[1], &iDate1[2]);
-    printf("Enter second date (DD/MM/YYYY): "); scanf("%d/%d/%d", &iDate2[0], &iDate2[1], &iDate2[2]);
-    iDate1OUT = iDate1[0] + (iDate1[1] * 100) + (iDate1[2] * 10000); iDate2OUT = iDate2[0] + (iDate2[1] * 100) + (iDate2[2] * 10000);
-    if(iDate1OUT > iDate2OUT) {printf("\n%d/%d/%d occurs before %d/%d/%d\n", iDate2[0], iDate2[1], iDate2[2], iDate1[0], iDate1[1], iDate1[2]);}
-    else if (iDate1OUT == iDate2OUT) {printf("\n%d/%d/%d is the same day %d/%d/%d\n", iDate1[0], iDate1[1], iDate1[2], iDate2[0], iDate2[1], iDate2[2]);}
-    else{printf("\n%d/%d/%d occurs before %d/%d/%d\n", iDate1[0], iDate1[1], iDate1[2], iDate2[0], iDate2[1], iDate2[2]);}   
+    //UserInput
+    printf("Enter First & Second Dates (DD/MM/YYYY DD/MM/YYYY): ");
+    scanf("%d/%d/%d %d/%d/%d", &iDate[0][0], &iDate[0][1], &iDate[0][2], &iDate[1][0], &iDate[1][1], &iDate[1][2]);
+
+    //FormatDates
+    iDate[0][3] = iDate[0][0] + (iDate[0][1] * 100) + (iDate[0][2] * 10000); 
+    iDate[1][3] = iDate[1][0] + (iDate[1][1] * 100) + (iDate[1][2] * 10000);
+
+    //Date2Happens1st
+    if(iDate[0][3] > iDate[1][3]) 
+    {
+        printf("\n%d/%d/%d occurs before %d/%d/%d\n", iDate[1][0], iDate[1][1], iDate[1][2], iDate[0][0], iDate[0][1], iDate[0][2]);
+    }
+
+    //Date1Happens1st
+    else
+    {
+        printf("\n%d/%d/%d occurs before %d/%d/%d\n", iDate[0][0], iDate[0][1], iDate[0][2], iDate[1][0], iDate[1][1], iDate[1][2]);
+    }   
+
     return 0; }
