@@ -2,7 +2,7 @@
 
 Program: Lab 4 Program 1
 Coder: Adam Kuefler
-Date: 27/09/2024(dd/mm/yyyy)
+Date: 04/10/2024(dd/mm/yyyy)
 Purpose: Pick A Number Game
 
 *******************************************************************************/
@@ -10,26 +10,26 @@ Purpose: Pick A Number Game
 #include <stdio.h>
 
 //Variable Declare
-int iNumber = 0;
+int iNumber = 0; //Input Number
 int iWin = 7; //Winning Number
 
 int main() {
 
-    //WhileLoop
-    while(iNumber != iWin)
+    while(iNumber != iWin)  //Loop Till Guess = Stored Number
     {
-        //UserInput
-        printf("Pick A Number(1-20): ");
+        
+        printf("Pick A Number(1-20): "); //User Input
         scanf("%d", &iNumber);
-        //CheckIfWin
-        if(iNumber != iWin)
+
+        if(iNumber != iWin) //If input number != winning number
         {
         //Wrong Number
         printf("Its Not %d Try Again\n\n", iNumber);
         }
     }
+
     //Print Win
-    printf("\n,------------------------------------------,\n| You Guessed Correctly! The Number Was %2.d |\n'------------------------------------------'\n\n", iWin);
+    printf(",------------------------------------------,\n| You Guessed Correctly! The Number Was %2.d |\n'------------------------------------------'\n\n", iWin);
 
     return 0; 
 }

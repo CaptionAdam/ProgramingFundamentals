@@ -2,7 +2,7 @@
 
 Program: Improved Loan Calculator
 Coder: Adam Kuefler
-Date: 27/09/2024(dd/mm/yyyy)
+Date: 04/10/2024(dd/mm/yyyy)
 Purpose: Take loan metrics and show results of input # of pay cycles
 
 *******************************************************************************/
@@ -10,11 +10,11 @@ Purpose: Take loan metrics and show results of input # of pay cycles
 #include <stdio.h>
 
     //Variable Declaration
-    float fLoan = 0;
-    float fPayment = 0;
-    float fIntrest = 0;
-    int iTerms = 0; 
-    int iCounter = 0;
+    float fLoan = 0;    //Loan Amount
+    float fPayment = 0;    //Payment Amount
+    float fIntrest = 0;    //Intrest In %
+    int iTerms = 0;    //Total Terms & Remaining Terms
+    int iCounter = 0;   //Incremental Term Counter
 
 int main() {
 
@@ -30,16 +30,16 @@ for(;;) //Loop to Repeat Calcuation For Infinite New Loans
     printf("Enter # of Payment Terms:  ");
     scanf("%d", &iTerms);
 
-    while(iTerms != 0)
+    for(iTerms; iTerms != 0; iTerms--) //Loop Till 0 Remaining Terms
     {
-        iCounter++;
+        iCounter++; //Increment Term Counter
         fLoan = fLoan+((fIntrest/1200)*fLoan)-fPayment; //Calculate Amount Owing For Term #
         printf("\nBalance Remaining after Payment #%d:    $%.2f\n", iCounter, fLoan); //Print Balance Remaining and Term #
-        iTerms--;
 
     }
-    //Notify Start of New Loan
-    printf("\n,------------------,\n|-----New Loan-----|\n'------------------'\n\n");
+
+    //Notify Start of New Loan Loop
+    printf("\n,--------------------,\n|      New Loan      |\n'--------------------'\n\n");
 }
     
     return 0; 

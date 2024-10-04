@@ -2,7 +2,7 @@
 
 Program: Lab 4 Program 2
 Coder: Adam Kuefler
-Date: 27/09/2024(dd/mm/yyyy)
+Date: 04/10/2024(dd/mm/yyyy)
 Purpose: Find Largest Input Number(2 Decimal Places)
 
 *******************************************************************************/
@@ -10,31 +10,27 @@ Purpose: Find Largest Input Number(2 Decimal Places)
 #include <stdio.h>
 
 //Variable Declare
-int iIndex = 1;
-float fNumber = 0;
-float fInput = 0;
+float fNumber = 0;  //Stored Largest Number
+float fInput = 0;   //User Input
 
 int main() {
 
-    
-    for(;;) //Loop Till Input = 0
+    do  //Loop Start
     {   
         //UserInput
         printf("Enter a number: ");
         scanf("%f", &fInput);
         
-        if(fInput == 0) //End When Input = 0
+
+        //If Input Number is Larger Then Stored Number
+        if(fInput > fNumber)
         {
-            break;
-        }
-        
-        else if(fInput > fNumber) //Overwrite Stored Largest Number
-        {
-            fNumber = fInput;
+            fNumber = fInput;   //Overwrite Stored Largest Number
         }
     }
+    while(fInput != 0);    //End Loop When Input = 0
 
-    printf("Largest Number: %.2f\n", fNumber);
+    printf("Largest Number: %.2f\n", fNumber);  //Print Largest Stored Number
 
     return 0; 
 }
