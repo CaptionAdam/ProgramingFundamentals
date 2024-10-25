@@ -36,6 +36,9 @@ int main() {
             if(cInput == ' ') {
                 iWordCount += 1;    //Increment Word Count
             }
+            else if(cInput == ',' || cInput == '.' || cInput == '?' || cInput == '\'') {
+
+            }
             else {
                 iCharCount += 1;    //Increment Char Count
             }
