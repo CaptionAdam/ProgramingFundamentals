@@ -20,8 +20,7 @@ int main(){
     //Variable Declaration
     int counts1[26] = {0};      //Word #1 Charicter Count
     int counts2[26] = {0};      //Word #2 Charicter Count
-
-    
+    int i = 0;
 
     //Forever Loop
     while(1) {
@@ -39,7 +38,7 @@ int main(){
         }
 
         //Array Reset
-        for(int i; i <=26; i++) {
+        for(i = 0; i <= 26; i++) {
             counts1[i] = 0;
             counts2[i] = 0;
         }
