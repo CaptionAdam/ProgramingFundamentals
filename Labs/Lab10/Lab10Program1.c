@@ -1,6 +1,6 @@
 /******************************************************************************
 
-Program: 
+Program: Lab 10 Program 1
 Coder: Adam Kuefler
 Date: 29/11/2024(dd/mm/yyyy)
 Purpose: 
@@ -13,7 +13,7 @@ void PrintBinary(char cByteChar);
 
 int main() {
 
-    char cTest = 'B';
+    unsigned char cTest = 'B';
 
     PrintBinary(cTest);
 

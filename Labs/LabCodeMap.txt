@@ -1,0 +1,77 @@
+Labs
+    Lab1 - Basics
+
+        Program1 - Change Calculator V1
+    
+        Program2 - Loan Calculator V1
+
+    
+    Lab2 - Formated I/O and Expressions
+    
+        Program1 - 4x4 Square Solver
+    
+        Program2 - Decimal to Octal Converter
+    
+    
+    Lab3 - Selection Statments
+    
+        Program1 - Income Tax Calculator(2020)
+    
+        Program2 - What Date Happened/Happens First
+    
+    
+    Lab4 - Loops
+    
+        Program1 - Pick A Number Game
+    
+        Program2 - Keep Only The Largest Input Number
+    
+        Program3 - Loan Calculator V2 Set Number of Loops
+    
+    
+    Lab5 - Ai Lab
+    
+        Program1 - Income Tax Calculator Ai
+    
+        program2 - Ai Chess
+    
+    
+    Lab6 - Datatypes
+    
+        Program1 - Alphanumeric Phone Number to Phone Number Converter
+    
+        Program2 - Count Vowels in Sentance
+    
+        program3 - Find average length of word in input sentence
+    
+    
+    Lab7 - Arrays
+    
+        Program1 - 4x4 Solver V2
+    
+        Program2 - Scrable Points Calculator
+    
+        haroldsHellephants - runForGoodTime
+    
+    
+    Lab8 - User Defined Functions
+    
+        Program1 - Set Polynomial Solver
+    
+        Program2 - Tax Calculator V2 
+    
+        Program3 - Anagram Tester
+    
+    
+    Lab9 - Pointers && Arrays
+    
+        Program1 - Change Calculator V2
+    
+        Program2 - Text Reverser(50charMax)
+    
+    
+    Lab10 - Bitwise Opporators
+    
+        Program1 - 
+    
+        Program2 - 
