@@ -72,6 +72,6 @@ Labs
     
     Lab10 - Bitwise Opporators
     
-        Program1 - 
+        Program1 - Hex Bit Checker
     
-        Program2 - 
+        Program2 - Hex Bit Changer

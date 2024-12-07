@@ -2,66 +2,76 @@
 
 Program: Lab 10 Program 2
 Coder: Adam Kuefler
-Date: 29/11/2024(dd/mm/yyyy)
-Purpose: Print 2 hex as Binary And Check if Bit is Set
+Date: 06/12/2024(dd/mm/yyyy)
+Purpose: Take 2 Input Hex Digits And Allow Bits To Be Edited And Print New Values
 
 *******************************************************************************/
 
 #include <stdio.h>
 #include <ctype.h>
 
-void PrintBinary(char cByteChar);                         //Binary Print Function Thx Cory <3
+void PrintBinary(char cByteChar);           //Binary Print Function{Thx Cory <3}
 
 int main() {
     
-    //Variable Declaration
-    unsigned char cHex, cHex2;                  //Hex Variables
-    char cChange;                               //What Change Do You Want To Make
-    int iCheckBit = 0, iShowBin = 1;
+    //  Variable Declaration
+    unsigned char cHex;                     //Hex Variable
+    //unsigned char cHex2;                  //Old No Longer Used Hex Variable
+    char cChange;                           //What Change Do You Want To Make
+    int iCheckBit = 0;                      //What Bit is to Be Checked
+    int iShowBin = 0;                       //0 Binary Output Is Disabled, 1 Binary Output Is Enabled(debug)
 
-    printf("\nEnter a pair of HEX digits: ");
-    scanf("%c%c", &cHex, &cHex2);
-    //scanf("%hhx %hhx", &cHex, &cHex2);        //No Thanks Ben
-    cHex = ((cHex << 5) | cHex2);
+
+    // //   Broken User Input 
+    // printf("\nEnter a pair of HEX digits: ");
+    // scanf("%c%c", &cHex, &cHex2);                        //That Didn't Work I Wish It Did
+    // scanf("%hhx %hhx", &cHex, &cHex2);                   //No Thanks Ben I Found A Better Way
+    // cHex = ((cHex << 4) | cHex2);
     
-    while(1) {
+    //  User Input
+    printf("\nEnter a pair of Hex digits: 0x");                                 //Prompts For Hex Value Input
+    scanf("%2hhx", &cHex);                                                      //Read/Store Two Hex Digits   
 
-        if(iShowBin == 1) {
-            PrintBinary(cHex);
+    //  Evaluation Loop
+    while(1) {                                                                  
+
+        //  Print Binary Call(debug)
+        if(iShowBin == 1) PrintBinary(cHex);                                    //If Binary Output is Enabled Print Binary Of Stored Hex Digits{Thx Cory <3}
+
+        //  Bit Editing
+        printf("\nEnter a bit to examine (0-7): ");                             //Ask For Bit# To Check
+        scanf("%d", &iCheckBit);                                                //Read/Store Bit To Check
+
+        if(iCheckBit < 0 || iCheckBit >7) {                                     //Check That Selected Bit Is Between 0-7
+            printf("{ERROR} Read The Instructions ;P\n");                       //Error If User Dosnt Input Valid Selection
+            continue;                                                           //Start Loop Over
         }
 
-        printf("\nEnter a bit to examine (0-7):  ");
-        scanf("%d", &iCheckBit);
-
-        if(iCheckBit < 0 || iCheckBit >7) {
-            printf("Error\n");
-            continue;
-        }
-
+        //  Check If Bit Is Set Or Not
+        if(cHex & (1 << iCheckBit)) printf("\nBit %d is Set.\n", iCheckBit);    //If Bit is Set Print That Bit Is Set
         
+        else printf("\nBit %d is Cleared.\n", iCheckBit);                       //Print If Bit Is Cleared
 
-        printf("Do you wish to set(s) or clear(c) the bit?: "); scanf(" %c", &cChange);
-        cChange = tolower(cChange);                         // makes input lower case
+        printf("Do you wish to set(s) or clear(c) the bit?: ");                //Ask If User Wants To Set Or Clear Selected Bit
+        scanf(" %c", &cChange);                                                //Collect Selected Action
+        cChange = toupper(cChange);                                            //Makes Input Upper Case
         
         // Bit changing
-        if (cChange == 's'){                                // Set Selected Bit
-            cHex |= (1 << iCheckBit);                       
-        }
-        else if (cChange == 'c'){                           // Clear Selected Bit
-            cHex &= ~(1 << iCheckBit);                      
-        }
-        else if (cChange == 'b'){                           // Toggle Binary Output
-            if(iShowBin == 1) iShowBin = 0;
-            else iShowBin = 1;
-        }
-        else printf("\nerror !Thats not an option!");
+        if (cChange == 'S') cHex |= (1 << iCheckBit);                          //Set Selected Bit
+
+        else if (cChange == 'C') cHex &= ~(1 << iCheckBit);                    //Clear Selected Bit
+                                  
+        else if (cChange == 'B') iShowBin = !iShowBin;                         //Toggle Binary Output(debug)
+            
+        else printf("\n{ERROR} Read The Instructions ;P\n");                   //Error If User Dosnt Input Valid Selection
         
-        if (cHex <= 'F') printf("0%x", cHex);// checks if hex value has less than one digit and prints 0 infront
-        else printf("%x", cHex); // prints hex value if it has 2 digits
+        //  New Hex Printing
+        if (cHex <= 0xF) printf("New Hex Value is: 0x0%x", cHex);              //checks if hex value has less than one digit and prints 0 infront
+        
+        else printf("New Hex Value Is: 0x%x", cHex);                           //prints hex value if it has 2 digits
 
     }
     
-
     return 0;
 }
 
@@ -84,7 +94,5 @@ int main() {
         else printf("0");                           //otherwise print a 0
     }
     printf("\n");
-    
-    
     
 }

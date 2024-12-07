@@ -2,49 +2,49 @@
 
 Program: Lab 10 Program 1
 Coder: Adam Kuefler
-Date: 29/11/2024(dd/mm/yyyy)
-Purpose: 
+Date: 06/12/2024(dd/mm/yyyy)
+Purpose: Print 2 Hex Digets As Binary And Check If Bit Is Set
 
 *******************************************************************************/
 
 #include <stdio.h>
 
-void PrintBinary(char cByteChar);
+void PrintBinary(char cByteChar);                               //Binary Print Function{Thx Cory <3}
 
 int main() {
 
-    unsigned int iHexValue;
-    int iCheckBit = 0;
+    //  Declare Variables
+    unsigned int iHexValue;                                     //Unsigned Interger To Store Hex Didgets
+    int iCheckBit = 0;                                          //Bit To Be Checked
 
-    printf("\nEnter a pair of HEX digits: ");
-    scanf("%x", &iHexValue);
+    printf("\nEnter A Pair Of Hex Digits: 0x");                 //Prompt For Hex Digits
+    scanf("%x", &iHexValue);                                    //Store Hex Digets
    
-    PrintBinary(iHexValue);
+    PrintBinary(iHexValue);                                     //Print Hex As Binary{Thx Cory <3}
 
+    //  Evaluation Loop
     while(1) {
 
-        printf("\nEnter a bit to examine (0-7):  ");
-        scanf("%d", &iCheckBit);
+        printf("\nEnter a bit to examine (0-7):  ");            //Prompt For Bit To Examine
+        scanf("%d", &iCheckBit);                                //Store Bit To Be Checked
 
-        if(iCheckBit < 0 || iCheckBit >7) {
-            printf("Error\n");
-            continue;
+        if(iCheckBit < 0 || iCheckBit >7) {                     //Check That Selected Bit Is Between 0-7
+            printf("{ERROR} Read The Instructions ;P\n");       //Error If User Dosnt Input Valid Selection  
+            continue;                                           //Restart Evaluation Loop
         }
 
-        if(iHexValue & (1 << iCheckBit)){
-           printf("\nBit %d is Set.\n", iCheckBit);
+        if(iHexValue & (1 << iCheckBit)){                       //If Bit is Set
+           printf("\nBit %d is Set.\n", iCheckBit);             //Print That Bit Is Set
            
        }
         else{
-            printf("\nBit %d is Cleared.\n", iCheckBit);
+            printf("\nBit %d is Cleared.\n", iCheckBit);        //Print If Bit Is Cleared
         }
-    
-
     }
     
-
     return 0;
 }
+
 
 
 /********************************************************************************
@@ -65,7 +65,5 @@ int main() {
         else printf("0");                           //otherwise print a 0
     }
     printf("\n");
-    
-    
     
 }
