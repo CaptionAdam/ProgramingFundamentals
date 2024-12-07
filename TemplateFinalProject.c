@@ -28,9 +28,11 @@ int main()
     char *Pointer = cAction;
     char inChar;
     int iPlayAgain = 1;
+    int iActionType;
 
     while(iPlayAgain)
     {
+        
         //*************************************************************
         //********************Intro Scene/Choice***********************
         //*************************************************************
@@ -43,21 +45,21 @@ int main()
 
             //Prompt for choice
 
-            printf("What do you do?\n(FEAR PUDDLE)  (GRAB WEAPON)  (GRAB SHIELD)");
+            printf("What do you do?\n(FEAR PUDDLE)  (GRAB WEAPON)  (GRAB SHIELD)\n");
 
             //Get input text
+            Pointer = cAction;
 
-           while ((inChar = getchar()) != '\n' && (Pointer - cAction) < 11) {         //Loop Till 'ENTER' Is Charicter In Buffer
+            while ((inChar = getchar()) != '\n' && (Pointer - cAction) < 11) {         //Loop Till 'ENTER' Is Charicter In Buffer
                 inChar = toupper(inChar);
                 *Pointer = inChar;
                 Pointer++;
             }
             
             //Compare input text to options
+            iActionType = ArrayCompare(cAction);
 
-            ArrayCompare(cAction);
-
-        // if()        //If choice allows to move on
+        if(iActionType == 3)         //If choice allows to move on
         {
             
             //***************************************************************************
@@ -68,7 +70,7 @@ int main()
             //*******************WEAPON NAME*********************************************
             
             //Flavour text and prompt for choice of weapon (Direct input character array)
-            
+            printf("Shield Worked!!!");
             //Get input text
             
             //Space for readability
@@ -123,6 +125,21 @@ int main()
         //**********************REPLAY PROMPT AND VARIABLE RESET**********************
         //****************************************************************************
         
+        else if(iActionType == 2) 
+        {
+            printf("You reach for a weapon and the dragon chomps you. You perish.\n");
+        }
+        
+        else if(iActionType == 1) 
+        {
+            printf("The dragon is disgusted with you. It breathes fire. You perish.\n");
+        }
+        else 
+        {
+            printf("Try Again\n");
+            continue;
+        }  
+
         //Play again?
         printf("Play again? \tYes (1)\tNo (0)");
         scanf("%d", &iPlayAgain);
@@ -147,22 +164,40 @@ int main()
 
 
 /********************************************************************************
- * Function: int ArrayCompare(char )
+ * Function: int ArrayCompare(char cArray)
  * Coder: Adam Kuefler
- * Date: I love those, they're tasty!
+ * Date: 06/12/2024
  * Purpose: Compares choice to options, returns match identity, or lack thereof
  * *****************************************************************************/
 int ArrayCompare(char *cArray)
 {
-    //{F, E, A, R,  , P, U, D, D, L, E}
-    //{G, R, A, B,  , W, E, A, P, O, N}
-    //{G, R, A, B,  , S, H, I, E, L, D}
-    
+    char cOption1[11] = {"FEAR PUDDLE"};
+    char cOption2[11] = {"GRAB WEAPON"};
+    char cOption3[11] = {"GRAB SHIELD"};
+    int iCorrect1 = 0, iCorrect2 = 0, iCorrect3 = 0;
+    int iIndex = 0;
     //For each array option, check letter for match against known options, increment if match found
 
+    while (iIndex < 11) {
+        if(cOption1[iIndex] == cArray[iIndex]) iCorrect1 ++;
+
+        if(cOption2[iIndex] == cArray[iIndex]) iCorrect2 ++;
+
+        if(cOption3[iIndex] == cArray[iIndex]) iCorrect3 ++;
+
+        iIndex++;
+        //printf("%d,%d,%d\n", iCorrect1, iCorrect2, iCorrect3);
+    }
     
     //If match, return result, else return 0 for no match
 
+    if(iCorrect1 >= 9) return 1;
+
+    if(iCorrect2 >= 9) return 2;
+    
+    if(iCorrect3 >= 9) return 3;
+
+    else return 0;
 }
 
 

@@ -13,9 +13,35 @@ void PrintBinary(char cByteChar);
 
 int main() {
 
-    unsigned char cTest = 'B';
+    unsigned int iHexValue;
+    int iCheckBit = 0;
 
-    PrintBinary(cTest);
+    printf("\nEnter a pair of HEX digits: ");
+    scanf("%x", &iHexValue);
+   
+    PrintBinary(iHexValue);
+
+    while(1) {
+
+        printf("\nEnter a bit to examine (0-7):  ");
+        scanf("%d", &iCheckBit);
+
+        if(iCheckBit < 0 || iCheckBit >7) {
+            printf("Error\n");
+            continue;
+        }
+
+        if(iHexValue & (1 << iCheckBit)){
+           printf("\nBit %d is Set.\n", iCheckBit);
+           
+       }
+        else{
+            printf("\nBit %d is Cleared.\n", iCheckBit);
+        }
+    
+
+    }
+    
 
     return 0;
 }
