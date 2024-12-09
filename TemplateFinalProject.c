@@ -195,7 +195,7 @@ int ArrayCompare(char *cArray)
 
     if(iCorrect2 >= 9) return 2;
     
-    if(iCorrect3 >= 9) return 3;
+    if(iCorrect3 >= 8) return 3;
 
     else return 0;
 }
