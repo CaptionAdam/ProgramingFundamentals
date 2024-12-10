@@ -19,20 +19,21 @@ Purpose:
 int ArrayCompare(char *cArray);
 void PrintBinary(int iIntegerInput);
 int EncodeWeapon(int iAttribute, int iValue);
-//int PrintWeapon();
-// void FinalAttack();
+int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName);
+void FinalAttack(int iDifficulty);
 
 int main()
 {
     //DebugVars
-    int PrintBin = 1;
+    int PrintDebug = 0;
 
     char cAction[11];
     char *ActionPoint = cAction;
     
 
-    char cWeapon[20];
+    char cWeapon[20] = {"                    "};
     char *WeaponPoint = cWeapon;
+    int iWeaponNameLength;
 
     char inChar;
     int iPlayAgain = 1;
@@ -47,7 +48,8 @@ int main()
     int iWeaponEchant;
 
     while(iPlayAgain)
-    {
+    {   
+        iWeaponNameLength = 0;
         
         //*************************************************************
         //********************Intro Scene/Choice***********************
@@ -104,6 +106,7 @@ int main()
             while ((inChar = getchar()) != '\n' && (WeaponPoint - cWeapon) < 20) {          //Loop Till 'ENTER' Is Charicter In Buffer
                 *WeaponPoint = toupper(inChar);
                 WeaponPoint++;
+                iWeaponNameLength++;
             }        
 
             //Space for readability
@@ -128,15 +131,15 @@ int main()
                 printf("********************************************************\n");
                 
                 iWeaponType = 0;
-            }
-
-            else iFinalOdds += 1;    
+            }    
             
             //Encode weapon type within int variable
             iWeaponStats |= EncodeWeapon(1, iWeaponType);
 
-            if(PrintBin == 1) PrintBinary(iWeaponStats);
-            
+            if(PrintDebug == 1) { 
+               PrintBinary(iWeaponStats);
+                printf("%d",iWeaponStats);
+            }
             //*****************WEAPON ELEMENT**********************************************
             printf("\n**************************************************\n");
             printf("* You notice this weapon is imbued with magic.   *\n");
@@ -156,15 +159,15 @@ int main()
                 printf("****************************************************************\n");
                 
                 iWeaponElement = 0;
-            }
-
-            else iFinalOdds += 1;    
+            }    
             
             //Encode weapon type within int variable
             iWeaponStats |= EncodeWeapon(2, iWeaponElement);
 
-            if(PrintBin == 1) PrintBinary(iWeaponStats);
-            
+            if(PrintDebug == 1) {
+               PrintBinary(iWeaponStats);
+                printf("%d",iWeaponStats);
+            }
             
             //******************WEAPON ATTRIBUTE********************************************
             printf("\n********************************************************\n");
@@ -185,13 +188,14 @@ int main()
                 iWeaponAttribute = 0;
             }
 
-            else iFinalOdds += 1;
-
             //Encode weapon type within int variable
             iWeaponStats |= EncodeWeapon(3, iWeaponAttribute);
 
-            if(PrintBin == 1) PrintBinary(iWeaponStats);
-            
+            if(PrintDebug == 1) {
+               PrintBinary(iWeaponStats);
+                printf("%d",iWeaponStats);
+            }
+
             //*******************WEAPON ENCHANTMENT******************************************
             printf("\n**********************************************************************\n");
             printf("* There appears to be a symbol on the weapon.                        *\n");
@@ -211,14 +215,14 @@ int main()
                 
                 iWeaponAttribute = 0;
             }
-
-            else iFinalOdds += 1;
-
+            
             //Encode weapon type within int variable
             iWeaponStats |= EncodeWeapon(4, iWeaponEchant);
 
-            if(PrintBin == 1) PrintBinary(iWeaponStats);
-            
+            if(PrintDebug == 1) {
+                PrintBinary(iWeaponStats);
+                printf("%d",iWeaponStats);
+            }
             
             //******************************************************************************
             //********************CONFRONTATION WITH THE DRAGON*****************************
@@ -226,14 +230,19 @@ int main()
             
             
             //Flavour text
+            printf("\n********************************************************************************\n");
+            printf("* You hold your weapon outstretched towards the dragon.                        *\n");
+            printf("* It looks in your direction, and lunges towards you.                          *\n");
+            printf("* You see an opportunity and sidestep the attack.                              *\n");
+            printf("* As the dragon's head passes, you come down on it with the full might of your *\n");
+            printf("********************************************************************************\n");
             
-            
+            iFinalOdds = PrintWeapon(iWeaponStats, iWeaponNameLength, cWeapon);
             //Determination of attack chance of success based on encoded weapon int variable
             
             
-            
             //The final attack resolves, and adventure ends
-            
+            FinalAttack(iFinalOdds);
             
         }
         
@@ -350,46 +359,162 @@ switch(iAttribute){
         break;
 }
 
-    PrintBinary(iWeaponStats);
+    //PrintBinary(iWeaponStats);
+    //printf("%d", iWeaponStats);
 
     return iWeaponStats;
 }
 /********************************************************************************
  * Function: int PrintWeapon()
- * Coder: Cory Thorp
+ * Coder: Adam Kuefler
  * Date: Only if they're pitted, thanks
  * Purpose: To print the full name of the awesome weapon you designed
  * *****************************************************************************/
 
-int PrintWeapon()
+int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName)
 {
     //Variable Declarations
-
-    
+    int iType, iElement, iAttribute, iEchant;
+    int iFinalOdds = 0;
+    int iIndex;
     //Delineation for readability
     
     //Decode weapon into Element, Type, ArrayName, "of", Attribute, Enchantment
     //Decode Element
-
-    
+    iElement = (iWeaponStats >> 16) &0xf; // and it with 1111 to set everything but first nibble to 0
+    switch(iElement) {
+        case 0:
+            printf("*** Non-magical ");
+            break;
+        case 1:
+            printf("*** Fiery ");
+            iFinalOdds++;
+            break;
+        case 2:
+            printf("*** Icy ");
+            iFinalOdds++;
+            break;
+        case 3:
+            printf("*** Acidic ");
+            iFinalOdds++;
+            break;
+        case 4:
+            printf("*** Forceful ");
+            iFinalOdds++;
+            break;
+        case 5:
+            printf("*** Lightning ");
+            iFinalOdds++;
+            break;
+        case 6:
+            printf("*** Psychic ");
+            iFinalOdds++;
+            break;
+    }
     //Decode Type
+    iType = (iWeaponStats >> 24) &0xf; // and it with 1111 to set everything but first nibble to 0
 
+    switch(iType) {
+        case 0:
+            printf("Useless ");
+            break;
+        case 1:
+            printf("Thrown ");
+            iFinalOdds++;
+            break;
+        case 2:
+            printf("Bludgeoning ");
+            iFinalOdds++;
+            break;
+        case 3:
+            printf("Piercing ");
+            iFinalOdds++;
+            break;
+        case 4:
+            printf("Slashing ");
+            iFinalOdds++;
+            break;
+    }
     
-    //Weapon Name
 
+    //Weapon Name
+    while (iIndex <= iWeaponNameLength){
+        printf("%c", cWeaponName[iIndex]);
+        iIndex++;
+    }
 
     //Of
-    printf(" of ");
+    printf("of ");
     
     //Decode Attribute
+    iAttribute = (iWeaponStats >> 8) &0xf; // and it with 1111 to set everything but first nibble to 0
 
+    switch(iAttribute) {
+        case 0:
+            printf("Boring ");
+            break;
+        case 1:
+            printf("Strong ");
+            iFinalOdds++;
+            break;
+        case 2:
+            printf("Agile ");
+            iFinalOdds++;
+            break;
+        case 3:
+            printf("Tough ");
+            iFinalOdds++;
+            break;
+        case 4:
+            printf("Intelligent ");
+            iFinalOdds++;
+            break;
+        case 5:
+            printf("Wise ");
+            iFinalOdds++;
+            break;
+        case 6:
+            printf("Charismatic ");
+            iFinalOdds++;
+            break;
+    }
     
     //Decode Enchantment
+    iEchant = (iWeaponStats >> 0) &0xf; // and it with 1111 to set everything but first nibble to 0
 
+    switch(iEchant) {
+        case 0:
+            printf("Dirt ***\n");
+            break;
+        case 1:
+            printf("Luck ***\n");
+            iFinalOdds++;
+            break;
+        case 2:
+            printf("Holy Might ***\n");
+            iFinalOdds++;
+            break;
+        case 3:
+            printf("Dragon Slaying ***\n");
+            iFinalOdds += 2;
+            break;
+        case 4:
+            printf("Warm Hugs ***\n");
+            iFinalOdds++;
+            break;
+        case 5:
+            printf("Unicorns ***\n");
+            iFinalOdds++;
+            break;
+        case 6:
+            printf("Mythbusting ***\n");
+            iFinalOdds++;
+            break;
+    }
     
-      //End of statement delineation
+    //End of statement delineation
+    return iFinalOdds;          //Integer to determine weapon strength against Dragon
     
-       //Integer to determine weapon strength against Dragon
 }
 
 
@@ -400,26 +525,44 @@ int PrintWeapon()
  * Purpose: Takes input of final attack chance, determines result, outputs to terminal
  * *****************************************************************************/
 
-void FinalAttack()
+void FinalAttack(int iDifficulty)
 {
     int iRandom = 0;
-    int iDifficulty = 0;
     
     //Flavour text and determination of difficulty of the hit based on weapon choices
-
-
-       //Generate random value for whether the strike hits 
+    switch(iDifficulty) {
+        case 0:
+            printf("This will have to be the luckiest strike of your life.\n");
+            break;
+        case 1:
+            printf("Chances are slim, but maybe this strike will work.\n");
+            break;
+        case 2:
+            printf("Like the toss of a coin, you are unsure if this strike will land.\n");
+            break;
+        case 3:
+            printf("You feel as though there is a better than average chance of hitting the dragon.\n");
+            break;
+        case 4:
+            printf("A strike on this dragon is extremely likely.\n");
+            break;
+        case 5:
+            printf("The stars and the planets have aligned on this moment in time. You see the hit happen before it does.\n");
+            break;
+    }
+        //Generate random value for whether the strike hits 
+        srand(time(NULL));
+        iRandom = rand() % 5;
     
-    
-    if(iRandom >= iDifficulty)
+    if(iRandom <= iDifficulty)
     {
         //Flavour text - User won!
-
+        printf("You Win\n\n\n");
     }
     else
     {
         //Flavour text - User lost!
-
+        printf("HaHaHa Your Dead\n\n\n");
     }
     
 }
