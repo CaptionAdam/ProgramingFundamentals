@@ -24,6 +24,9 @@ int EncodeWeapon(int iAttribute, int iValue);
 
 int main()
 {
+    //DebugVars
+    int PrintBin = 1;
+
     char cAction[11];
     char *ActionPoint = cAction;
     
@@ -37,9 +40,11 @@ int main()
 
     int iFinalOdds = 0;
     //  Weapon Stats
-    int iWeaponAttributes;
+    int iWeaponStats;
     int iWeaponType;
     int iWeaponElement;
+    int iWeaponAttribute;
+    int iWeaponEchant;
 
     while(iPlayAgain)
     {
@@ -109,7 +114,7 @@ int main()
             
             
             //Flavour text and prompt for choice of weapon type
-            printf("*********************************************************\n");
+            printf("\n*********************************************************\n");
             printf("* Ahh, you have chosen a weapon that is perfect for:    *\n");
             printf("* Throwing(1), Bludgeoning(2), Piercing(3), Slashing(4) *\n");
             printf("*********************************************************\n");
@@ -118,34 +123,101 @@ int main()
 
             //If input is not within range, give flavour text and store as 0
             if(iWeaponType < 1 || iWeaponType > 4) {
-                printf("********************************************************\n");
+                printf("\n********************************************************\n");
                 printf("* So, you have chosen a useless weapon...Best of luck. *\n");
                 printf("********************************************************\n");
                 
                 iWeaponType = 0;
             }
 
-            else iFinalOdds += 25;    
+            else iFinalOdds += 1;    
             
             //Encode weapon type within int variable
-            iWeaponAttributes |= EncodeWeapon(1, iWeaponType);
+            iWeaponStats |= EncodeWeapon(1, iWeaponType);
 
-            PrintBinary(iWeaponAttributes);
+            if(PrintBin == 1) PrintBinary(iWeaponStats);
             
             //*****************WEAPON ELEMENT**********************************************
+            printf("\n**************************************************\n");
+            printf("* You notice this weapon is imbued with magic.   *\n");
+            printf("* What natural element does your weapon possess? *\n");
+            printf("**************************************************\n");
+            printf("*    Fire (1)        Ice (2)         Acid (3)    *\n");
+            printf("*    Force(4)     Lightning (5)    Psychic (6)   *\n");
+            printf("**************************************************\n");
+            //printf("*  *");
+            printf(": ");
+            scanf("%d", &iWeaponElement);
+
+            //If input is not within range, give flavour text and store as 0
+            if(iWeaponElement < 1 || iWeaponElement > 6) {
+                printf("\n***************************************************************\n");
+                printf("* Oh, you must have been mistaken. This weapon is not magical. *\n");
+                printf("****************************************************************\n");
+                
+                iWeaponElement = 0;
+            }
+
+            else iFinalOdds += 1;    
             
-            
-            
+            //Encode weapon type within int variable
+            iWeaponStats |= EncodeWeapon(2, iWeaponElement);
+
+            if(PrintBin == 1) PrintBinary(iWeaponStats);
             
             
             //******************WEAPON ATTRIBUTE********************************************
+            printf("\n********************************************************\n");
+            printf("* When you hold this weapon, you feel                  *\n");
+            printf("********************************************************\n");
+            printf("* Stronger (1)    More Agile (2)          Tougher (3)  *\n");
+            printf("* Smarter (4)     Wiser (5)       More Charismatic (6) *\n");
+            printf("********************************************************\n");
+            printf(": ");
+            scanf("%d", &iWeaponAttribute);
             
-            
-            
+            //If input is not within range, give flavour text and store as 0
+            if(iWeaponAttribute < 1 || iWeaponAttribute > 6) {
+                printf("\n***********************************************\n");
+                printf("* Huh, it was a fleeting feeling.  How boring. *\n");
+                printf("************************************************\n");
+                
+                iWeaponAttribute = 0;
+            }
+
+            else iFinalOdds += 1;
+
+            //Encode weapon type within int variable
+            iWeaponStats |= EncodeWeapon(3, iWeaponAttribute);
+
+            if(PrintBin == 1) PrintBinary(iWeaponStats);
             
             //*******************WEAPON ENCHANTMENT******************************************
+            printf("\n**********************************************************************\n");
+            printf("* There appears to be a symbol on the weapon.                        *\n");
+            printf("* What symbol is upon it?                                            *\n");
+            printf("**********************************************************************\n");
+            printf("* Horseshoe (1)           Godly Representation (2)        Dragon (3) *\n");
+            printf("* Outstretched Arms (4)   Spiral Horn (5)             Walrus man (6) *\n");
+            printf("**********************************************************************\n");
+            printf(": ");
+            scanf("%d", &iWeaponEchant);
             
-            
+            //If input is not within range, give flavour text and store as 0
+            if(iWeaponEchant < 1 || iWeaponEchant > 6) {
+                printf("\n***********************************************\n");
+                printf("* Huh, it was a fleeting feeling.  How boring. *\n");
+                printf("************************************************\n");
+                
+                iWeaponAttribute = 0;
+            }
+
+            else iFinalOdds += 1;
+
+            //Encode weapon type within int variable
+            iWeaponStats |= EncodeWeapon(4, iWeaponEchant);
+
+            if(PrintBin == 1) PrintBinary(iWeaponStats);
             
             
             //******************************************************************************
@@ -250,7 +322,7 @@ int ArrayCompare(char *cArray)
  * Function: int EncodeWeapon(int iAttribute, int iValue)
  * Coder: Cory Thorp
  * Date: Date squares are the best!
- * Purpose: To encode the various attributes into an integer (32 bit) in 
+ * Purpose: To encode the various Stats into an integer (32 bit) in 
  * bits 1-4, 8-12, 16-20, and 24-28
  * 
  * MSB  XXXX    XXXX    XXXX    XXXX    XXXX    XXXX    XXXX    XXXX     LSB
