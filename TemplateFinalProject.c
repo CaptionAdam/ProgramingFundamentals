@@ -17,18 +17,28 @@ Purpose:
 
 //Function Declarations
 int ArrayCompare(char *cArray);
-// void PrintBinary(int iIntegerInput);
-// int EncodeWeapon(int iAttribute, int iValue);
+void PrintBinary(int iIntegerInput);
+int EncodeWeapon(int iAttribute, int iValue);
 // int PrintWeapon();
 // void FinalAttack();
 
 int main()
 {
     char cAction[11];
-    char *Pointer = cAction;
+    char *ActionPoint = cAction;
+    
+
+    char cWeapon[20];
+    char *WeaponPoint = cWeapon;
+
     char inChar;
     int iPlayAgain = 1;
     int iActionType;
+
+    int iFinalOdds = 0;
+    //  Weapon Stats
+    int iWeaponAttributes;
+    int iWeaponType;
 
     while(iPlayAgain)
     {
@@ -39,25 +49,30 @@ int main()
         
         //Descriptive text, setting scene
         
-        printf("You have reached the final room of the dungeon.\nA large dragon stands before you.\nIt is beyond massive.\nYou see a weapon and a shield on the floor.\n");
-
+        printf("***************************************************\n");
+        printf("* You have reached the final room of the dungeon. *\n");
+        printf("* A large dragon stands before you.               *\n");
+        printf("* It is beyond massive.                           *\n");
+        printf("* You see a weapon and a shield on the floor.     *\n");
+        printf("***************************************************\n\n");
         
 
-            //Prompt for choice
-
-            printf("What do you do?\n(FEAR PUDDLE)  (GRAB WEAPON)  (GRAB SHIELD)\n");
-
-            //Get input text
-            Pointer = cAction;
-
-            while ((inChar = getchar()) != '\n' && (Pointer - cAction) < 11) {         //Loop Till 'ENTER' Is Charicter In Buffer
-                inChar = toupper(inChar);
-                *Pointer = inChar;
-                Pointer++;
-            }
+        //Prompt for choice
+        printf("*******************\n");
+        printf("* What do you do? *\n");
+        printf("*******************\n");
+        printf("(FEAR PUDDLE)  (GRAB WEAPON)  (GRAB SHIELD)\n");
             
-            //Compare input text to options
-            iActionType = ArrayCompare(cAction);
+        //Get input text
+        ActionPoint = cAction;
+
+        while ((inChar = getchar()) != '\n' && (ActionPoint - cAction) < 11) {         //Loop Till 'ENTER' Is Charicter In Buffer
+            *ActionPoint = toupper(inChar);
+            ActionPoint++;
+        }
+            
+        //Compare input text to options
+        iActionType = ArrayCompare(cAction);
 
         if(iActionType == 3)         //If choice allows to move on
         {
@@ -70,9 +85,24 @@ int main()
             //*******************WEAPON NAME*********************************************
             
             //Flavour text and prompt for choice of weapon (Direct input character array)
-            printf("Shield Worked!!!");
-            //Get input text
+            //printf("Shield Worked!!!");
             
+            printf("*************************************************************************\n");
+            printf("* You reach for a shield and protect yourself from the dragon's attack. *\n");
+            printf("* With the benefit of the shield's protection, you reach for a weapon.  *\n");
+            printf("* What type of weapon do you grab?                                      *\n");
+            printf("*************************************************************************\n");
+            printf("(20 characters max): ");
+            
+            //Get input text
+            WeaponPoint = cWeapon;                                                          //Set Pointer to Position 0
+
+            while ((inChar = getchar()) != '\n' && (WeaponPoint - cWeapon) < 20) {          //Loop Till 'ENTER' Is Charicter In Buffer
+                *WeaponPoint = toupper(inChar);
+                WeaponPoint++;
+            }        
+
+            WeaponPoint = cWeapon;                                                          //Reset Pointer To Opsition 0 For Future Use
             //Space for readability
             
             
@@ -81,13 +111,30 @@ int main()
             
             
             //Flavour text and prompt for choice of weapon type
-            
+            printf("*********************************************************\n");
+            printf("* Ahh, you have chosen a weapon that is perfect for:    *\n");
+            printf("* Throwing(1), Bludgeoning(2), Piercing(3), Slashing(4) *\n");
+            printf("*********************************************************\n");
+            printf(": ");
+            scanf("%d\n", &iWeaponType);
+
             //If input is not within range, give flavour text and store as 0
-            
+            if(iWeaponType < 1 || iWeaponType > 4) {
+                printf("********************************************************\n");
+                printf("* So, you have chosen a useless weapon...Best of luck. *\n");
+                printf("********************************************************\n");
+                
+                iWeaponType = 0;
+            }
+
+
+            else iFinalOdds += 25;    
             //Delineation for readability
             
             //Encode weapon type within int variable
-            
+            iWeaponAttributes |= EncodeWeapon(1, iWeaponType);
+
+
             //*****************WEAPON ELEMENT**********************************************
             
             
@@ -136,12 +183,12 @@ int main()
         }
         else 
         {
-            printf("Try Again\n");
+            printf("\nTry Again\n\n");
             continue;
         }  
 
         //Play again?
-        printf("Play again? \tYes (1)\tNo (0)");
+        printf("\nPlay again? \tYes (1)\tNo (0)");
         scanf("%d", &iPlayAgain);
         printf("\n\n\n****************************************\n\n\n");
         
@@ -186,7 +233,7 @@ int ArrayCompare(char *cArray)
         if(cOption3[iIndex] == cArray[iIndex]) iCorrect3 ++;
 
         iIndex++;
-        //printf("%d,%d,%d\n", iCorrect1, iCorrect2, iCorrect3);
+        //printf("%d,%d,%d\n", iCorrect1, iCorrect2, iCorrect3);        //Debug Code
     }
     
     //If match, return result, else return 0 for no match
@@ -216,10 +263,27 @@ int ArrayCompare(char *cArray)
 int EncodeWeapon(int iAttribute, int iValue)
 {
     //Output variable declaration    
+int iWeaponStats = 0;
     
-    //Depending on attribute, encode in defined position of int variable
+//Depending on attribute, encode in defined position of int variable
+switch(iAttribute){
+    case 1:
+        iWeaponStats = iValue << 24; // shift bits 24 places left
+        break;
+    case 2:
+        iWeaponStats = iValue << 16; // shift bits 16 places left
+        break;
+    case 3:
+        iWeaponStats = iValue << 8; // shift bits 8 places left
+        break;
+    case 4:
+        iWeaponStats = iValue << 0; // shift bits 0 places left
+        break;
+}
 
+//PrintBinary(iWeaponStats);
 
+return iWeaponStats; // returns a 32 bit int with ivalue stored within it
 }
 
 /********************************************************************************
