@@ -33,7 +33,7 @@ int main()
 
     char cWeapon[20] = {"                    "};
     char *WeaponPoint = cWeapon;
-    int iWeaponNameLength;
+    int iWeaponNameLength = 0;
 
     char inChar;
     int iPlayAgain = 1;
@@ -41,16 +41,10 @@ int main()
 
     int iFinalOdds = 0;
     //  Weapon Stats
-    int iWeaponStats;
-    int iWeaponType;
-    int iWeaponElement;
-    int iWeaponAttribute;
-    int iWeaponEchant;
+    int iWeaponStats, iWeaponType, iWeaponElement, iWeaponAttribute, iWeaponEchant;
 
     while(iPlayAgain)
     {   
-        iWeaponNameLength = 0;
-        
         //*************************************************************
         //********************Intro Scene/Choice***********************
         //*************************************************************
@@ -93,7 +87,7 @@ int main()
             
             //Flavour text and prompt for choice of weapon (Direct input character array)
             //printf("Shield Worked!!!");
-            printf("*************************************************************************\n");
+            printf("\n\n*************************************************************************\n");
             printf("* You reach for a shield and protect yourself from the dragon's attack. *\n");
             printf("* With the benefit of the shield's protection, you reach for a weapon.  *\n");
             printf("* What type of weapon do you grab?                                      *\n");
@@ -104,7 +98,7 @@ int main()
             WeaponPoint = cWeapon;                                                          //Set Pointer to Position 0
 
             while ((inChar = getchar()) != '\n' && (WeaponPoint - cWeapon) < 20) {          //Loop Till 'ENTER' Is Charicter In Buffer
-                *WeaponPoint = toupper(inChar);
+                *WeaponPoint = inChar;
                 WeaponPoint++;
                 iWeaponNameLength++;
             }        
@@ -117,7 +111,7 @@ int main()
             
             
             //Flavour text and prompt for choice of weapon type
-            printf("\n*********************************************************\n");
+            printf("\n\n*********************************************************\n");
             printf("* Ahh, you have chosen a weapon that is perfect for:    *\n");
             printf("* Throwing(1), Bludgeoning(2), Piercing(3), Slashing(4) *\n");
             printf("*********************************************************\n");
@@ -141,7 +135,7 @@ int main()
                 printf("%d",iWeaponStats);
             }
             //*****************WEAPON ELEMENT**********************************************
-            printf("\n**************************************************\n");
+            printf("\n\n**************************************************\n");
             printf("* You notice this weapon is imbued with magic.   *\n");
             printf("* What natural element does your weapon possess? *\n");
             printf("**************************************************\n");
@@ -170,7 +164,7 @@ int main()
             }
             
             //******************WEAPON ATTRIBUTE********************************************
-            printf("\n********************************************************\n");
+            printf("\n\n********************************************************\n");
             printf("* When you hold this weapon, you feel                  *\n");
             printf("********************************************************\n");
             printf("* Stronger (1)    More Agile (2)          Tougher (3)  *\n");
@@ -181,7 +175,7 @@ int main()
             
             //If input is not within range, give flavour text and store as 0
             if(iWeaponAttribute < 1 || iWeaponAttribute > 6) {
-                printf("\n***********************************************\n");
+                printf("\n\n***********************************************\n");
                 printf("* Huh, it was a fleeting feeling.  How boring. *\n");
                 printf("************************************************\n");
                 
@@ -197,7 +191,7 @@ int main()
             }
 
             //*******************WEAPON ENCHANTMENT******************************************
-            printf("\n**********************************************************************\n");
+            printf("\n\n**********************************************************************\n");
             printf("* There appears to be a symbol on the weapon.                        *\n");
             printf("* What symbol is upon it?                                            *\n");
             printf("**********************************************************************\n");
@@ -230,7 +224,7 @@ int main()
             
             
             //Flavour text
-            printf("\n********************************************************************************\n");
+            printf("\n\n********************************************************************************\n");
             printf("* You hold your weapon outstretched towards the dragon.                        *\n");
             printf("* It looks in your direction, and lunges towards you.                          *\n");
             printf("* You see an opportunity and sidestep the attack.                              *\n");
@@ -250,15 +244,10 @@ int main()
         //**********************REPLAY PROMPT AND VARIABLE RESET**********************
         //****************************************************************************
         
-        else if(iActionType == 2) 
-        {
-            printf("You reach for a weapon and the dragon chomps you. You perish.\n");
-        }
+        else if(iActionType == 2) printf("You reach for a weapon and the dragon chomps you. You perish.\n");
         
-        else if(iActionType == 1) 
-        {
-            printf("The dragon is disgusted with you. It breathes fire. You perish.\n");
-        }
+        else if(iActionType == 1) printf("The dragon is disgusted with you. It breathes fire. You perish.\n");
+        
         else 
         {
             printf("Try Again\n");
@@ -275,7 +264,9 @@ int main()
         while((getchar()) != '\n');     //Prevents characters in input buffer from affecting next loop
         
         //Reset loop variables
-        
+        iWeaponNameLength = 0;
+        iWeaponStats = 0;
+        iFinalOdds = 0;
     }
         
     return 0;
@@ -384,30 +375,30 @@ int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName)
     iElement = (iWeaponStats >> 16) &0xf; // and it with 1111 to set everything but first nibble to 0
     switch(iElement) {
         case 0:
-            printf("*** Non-magical ");
+            printf("\n*** Non-magical ");
             break;
         case 1:
-            printf("*** Fiery ");
+            printf("\n*** Fiery ");
             iFinalOdds++;
             break;
         case 2:
-            printf("*** Icy ");
+            printf("\n*** Icy ");
             iFinalOdds++;
             break;
         case 3:
-            printf("*** Acidic ");
+            printf("\n*** Acidic ");
             iFinalOdds++;
             break;
         case 4:
-            printf("*** Forceful ");
+            printf("\n*** Forceful ");
             iFinalOdds++;
             break;
         case 5:
-            printf("*** Lightning ");
+            printf("\n*** Lightning ");
             iFinalOdds++;
             break;
         case 6:
-            printf("*** Psychic ");
+            printf("\n*** Psychic ");
             iFinalOdds++;
             break;
     }
@@ -484,30 +475,30 @@ int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName)
 
     switch(iEchant) {
         case 0:
-            printf("Dirt ***\n");
+            printf("Dirt ***\n\n");
             break;
         case 1:
-            printf("Luck ***\n");
+            printf("Luck ***\n\n");
             iFinalOdds++;
             break;
         case 2:
-            printf("Holy Might ***\n");
+            printf("Holy Might ***\n\n");
             iFinalOdds++;
             break;
         case 3:
-            printf("Dragon Slaying ***\n");
+            printf("Dragon Slaying ***\n\n");
             iFinalOdds += 2;
             break;
         case 4:
-            printf("Warm Hugs ***\n");
+            printf("Warm Hugs ***\n\n");
             iFinalOdds++;
             break;
         case 5:
-            printf("Unicorns ***\n");
+            printf("Unicorns ***\n\n");
             iFinalOdds++;
             break;
         case 6:
-            printf("Mythbusting ***\n");
+            printf("Mythbusting ***\n\n");
             iFinalOdds++;
             break;
     }
@@ -557,12 +548,12 @@ void FinalAttack(int iDifficulty)
     if(iRandom <= iDifficulty)
     {
         //Flavour text - User won!
-        printf("You Win\n\n\n");
+        printf("\n!!!You Win!!!\n\n\n");
     }
     else
     {
         //Flavour text - User lost!
-        printf("HaHaHa Your Dead\n\n\n");
+        printf("Ha Ha Your Dead :(\n\n\n");
     }
     
 }
