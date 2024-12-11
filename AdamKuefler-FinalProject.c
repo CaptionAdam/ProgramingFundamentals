@@ -45,6 +45,16 @@ int main()
 
     while(iPlayAgain)
     {   
+
+        //Reset loop variables
+        iWeaponNameLength = 0;                                                                                      //Reset Weapon Name Length
+        iWeaponStats = 0;                                                                                           //Wipe Weapon Stats
+        iWeaponType = 0;
+        iWeaponElement = 0;
+        iWeaponAttribute = 0;
+        iWeaponEchant = 0;
+        iFinalOdds = 0;                                                                                             //Reset Final Odds
+
         //*************************************************************
         //********************Intro Scene/Choice***********************
         //*************************************************************
@@ -206,8 +216,9 @@ int main()
                 printf("* Huh, it was a fleeting feeling.  How boring. *\n");
                 printf("************************************************\n");
                 
-                iWeaponAttribute = 0;                                                        //Set iWeaponEchant = 0
+                iWeaponEchant = 0;                                                          //Set iWeaponEchant = 0
             }
+            
             
             //Encode Weapon Enchantment In iWeaponStats
             iWeaponStats |= EncodeWeapon(4, iWeaponEchant);                                  //Or EncodeWeapon Output With iWeaponStats To Overwrite Enchantment Nibble
@@ -269,10 +280,7 @@ int main()
         //flush input buffer
         while((getchar()) != '\n');                                                                                 //Prevents Characters Input Buffer From Affecting Next Loop
         
-        //Reset loop variables
-        iWeaponNameLength = 0;                                                                                      //Reset Weapon Name Length
-        iWeaponStats = 0;                                                                                           //Wipe Weapon Stats
-        iFinalOdds = 0;                                                                                             //Reset Final Odds
+        
     }
         
     return 0;
