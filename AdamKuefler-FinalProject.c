@@ -2,8 +2,8 @@
 
 Program: ELTR1102 Project
 Coder: Adam Kuefler
-Date: 05/12/2024(dd/mm/yyyy)
-Purpose:  
+Date: 10/12/2024(dd/mm/yyyy)
+Purpose: Recreate A Simple Text Based Adventure
 
 *******************************************************************************/
 
