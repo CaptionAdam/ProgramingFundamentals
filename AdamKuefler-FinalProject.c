@@ -367,7 +367,7 @@ int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName)
     //Variable Declarations
     int iType, iElement, iAttribute, iEchant;
     int iFinalOdds = 0;
-    int iIndex;
+    int iIndex = 0;
     //Delineation for readability
     
     //Decode weapon into Element, Type, ArrayName, "of", Attribute, Enchantment
@@ -429,13 +429,13 @@ int PrintWeapon(int iWeaponStats, int iWeaponNameLength, char *cWeaponName)
     
 
     //Weapon Name
-    while (iIndex <= iWeaponNameLength){
+    while (iIndex < iWeaponNameLength){
         printf("%c", cWeaponName[iIndex]);
         iIndex++;
     }
 
     //Of
-    printf("of ");
+    printf(" of ");
     
     //Decode Attribute
     iAttribute = (iWeaponStats >> 8) &0xf; // and it with 1111 to set everything but first nibble to 0
