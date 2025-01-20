@@ -84,194 +84,196 @@ int main()
             //Compare input text to options
             iActionType = ArrayCompare(cAction);                                        //Use Array Compare To Deside the Next Action
 
-        if(iActionType == 3)                                                            //If Action Type = 3 Continue
-        {
-            
-            //***************************************************************************
-            //************************Weapon Choices*************************************
-            //***************************************************************************
-            
-            
-            //*******************WEAPON NAME*********************************************
-            
-            //Flavour text and prompt for choice of weapon (Direct input character array)
-            printf("\n\n*************************************************************************\n");
-            printf("* You reach for a shield and protect yourself from the dragon's attack. *\n");
-            printf("* With the benefit of the shield's protection, you reach for a weapon.  *\n");
-            printf("* What type of weapon do you grab?                                      *\n");
-            printf("*************************************************************************\n");
-            printf("(20 characters max): ");
-            //Get input text
-            
-            WeaponPoint = cWeapon;                                                          //Set Pointer to Position 0
-
-            while ((inChar = getchar()) != '\n' && (WeaponPoint - cWeapon) < 20) {          //Loop Till 'ENTER' Is Charicter In Buffer
-                *WeaponPoint = inChar;
-                WeaponPoint++;
-                iWeaponNameLength++;
-            }        
-
-            //flush input buffer
-            while((getchar()) != '\n');                                                    //Prevents Characters Input Buffer From Affecting Next Loop
-
-
-            //******************WEAPON TYPE************************************************
-            
-            
-            //Flavour text and prompt for choice of weapon type
-            printf("\n\n*********************************************************\n");
-            printf("* Ahh, you have chosen a weapon that is perfect for:    *\n");
-            printf("* Throwing(1), Bludgeoning(2), Piercing(3), Slashing(4) *\n");
-            printf("*********************************************************\n");
-            printf(": ");
-            scanf("%d", &iWeaponType);                                                      //Store Input As iWeaponType
-
-            //If input is not within range, give flavour text and store as 0
-            if(iWeaponType < 1 || iWeaponType > 4) {                                        //If iWeaponType Out Of Range
-                printf("\n********************************************************\n");
-                printf("* So, you have chosen a useless weapon...Best of luck. *\n");
-                printf("********************************************************\n");
+        switch(iActionType) 
+        {          
+            case(1):                                                 //If Action Type = 3 Continue
                 
-                iWeaponType = 0;                                                            //Set iWeaponType = 0
-            }    
-            
-            //Encode Weapon Type In iWeaponStats
-            iWeaponStats |= EncodeWeapon(1, iWeaponType);                                   //Or EncodeWeapon Output With iWeaponStats To Overwrite Type Nibble
-
-            //Debug Print Out
-            if(PrintDebug == 1) { 
-               PrintBinary(iWeaponStats);
-                printf("%d",iWeaponStats);
-            }
-            //*****************WEAPON ELEMENT**********************************************
-            printf("\n\n**************************************************\n");
-            printf("* You notice this weapon is imbued with magic.   *\n");
-            printf("* What natural element does your weapon possess? *\n");
-            printf("**************************************************\n");
-            printf("*    Fire (1)        Ice (2)         Acid (3)    *\n");
-            printf("*    Force(4)     Lightning (5)    Psychic (6)   *\n");
-            printf("**************************************************\n");
-            //printf("*  *");
-            printf(": ");
-            scanf("%d", &iWeaponElement);                                                   //Store Input As iWeaponElement
-
-            //If input is not within range, give flavour text and store as 0
-            if(iWeaponElement < 1 || iWeaponElement > 6) {                                  //If iWeaponElement Out Of Range
-                printf("\n***************************************************************\n");
-                printf("* Oh, you must have been mistaken. This weapon is not magical. *\n");
-                printf("****************************************************************\n");
+                //***************************************************************************
+                //************************Weapon Choices*************************************
+                //***************************************************************************
                 
-                iWeaponElement = 0;                                                         //Set iWeaponElement = 0
-            }    
-            
-            //Encode Weapon Element In iWeaponStats
-            iWeaponStats |= EncodeWeapon(2, iWeaponElement);                                //Or EncodeWeapon Output With iWeaponStats To Overwrite Element Nibble
-
-            //Debug Print Out
-            if(PrintDebug == 1) {
-               PrintBinary(iWeaponStats);
-                printf("%d",iWeaponStats);
-            }
-            
-            //******************WEAPON ATTRIBUTE********************************************
-            printf("\n\n********************************************************\n");
-            printf("* When you hold this weapon, you feel                  *\n");
-            printf("********************************************************\n");
-            printf("* Stronger (1)    More Agile (2)          Tougher (3)  *\n");
-            printf("* Smarter (4)     Wiser (5)       More Charismatic (6) *\n");
-            printf("********************************************************\n");
-            printf(": ");
-            scanf("%d", &iWeaponAttribute);                                                 //Store Input As iWeaponAtribute
-            
-            //If input is not within range, give flavour text and store as 0
-            if(iWeaponAttribute < 1 || iWeaponAttribute > 6) {                              //If iWeaponAttribute Out Of Range
-                printf("\n\n***********************************************\n");
-                printf("* Huh, it was a fleeting feeling.  How boring. *\n");
-                printf("************************************************\n");
                 
-                iWeaponAttribute = 0;                                                       //Set iWeaponAttribute = 0
-            }
-
-            //Encode Weapon Attriute In iWeaponStats
-            iWeaponStats |= EncodeWeapon(3, iWeaponAttribute);                              //Or EncodeWeapon Output With iWeaponStats To Overwrite Attribute Nibble
-
-            //Debug Print Out
-            if(PrintDebug == 1) {
-               PrintBinary(iWeaponStats);
-                printf("%d",iWeaponStats);
-            }
-
-            //*******************WEAPON ENCHANTMENT******************************************
-            printf("\n\n**********************************************************************\n");
-            printf("* There appears to be a symbol on the weapon.                        *\n");
-            printf("* What symbol is upon it?                                            *\n");
-            printf("**********************************************************************\n");
-            printf("* Horseshoe (1)           Godly Representation (2)        Dragon (3) *\n");
-            printf("* Outstretched Arms (4)   Spiral Horn (5)             Walrus man (6) *\n");
-            printf("**********************************************************************\n");
-            printf(": ");
-            scanf("%d", &iWeaponEchant);                                                     //Store Input As iWeaponEchant
-            
-            //If input is not within range, give flavour text and store as 0
-            if(iWeaponEchant < 1 || iWeaponEchant > 6) {                                     //If iWeaponEchant Out Of Range
-                printf("\n***********************************************\n");
-                printf("* Huh, it was a fleeting feeling.  How boring. *\n");
-                printf("************************************************\n");
+                //*******************WEAPON NAME*********************************************
                 
-                iWeaponEchant = 0;                                                          //Set iWeaponEchant = 0
-            }
-            
-            
-            //Encode Weapon Enchantment In iWeaponStats
-            iWeaponStats |= EncodeWeapon(4, iWeaponEchant);                                  //Or EncodeWeapon Output With iWeaponStats To Overwrite Enchantment Nibble
+                //Flavour text and prompt for choice of weapon (Direct input character array)
+                printf("\n\n*************************************************************************\n");
+                printf("* You reach for a shield and protect yourself from the dragon's attack. *\n");
+                printf("* With the benefit of the shield's protection, you reach for a weapon.  *\n");
+                printf("* What type of weapon do you grab?                                      *\n");
+                printf("*************************************************************************\n");
+                printf("(20 characters max): ");
+                //Get input text
+                
+                WeaponPoint = cWeapon;                                                          //Set Pointer to Position 0
 
-            //Debug Printout
-            if(PrintDebug == 1) {
+                while ((inChar = getchar()) != '\n' && (WeaponPoint - cWeapon) < 20) {          //Loop Till 'ENTER' Is Charicter In Buffer
+                    *WeaponPoint = inChar;
+                    WeaponPoint++;
+                    iWeaponNameLength++;
+                }        
+
+                //flush input buffer
+                while((getchar()) != '\n');                                                    //Prevents Characters Input Buffer From Affecting Next Loop
+
+
+                //******************WEAPON TYPE************************************************
+                
+                
+                //Flavour text and prompt for choice of weapon type
+                printf("\n\n*********************************************************\n");
+                printf("* Ahh, you have chosen a weapon that is perfect for:    *\n");
+                printf("* Throwing(1), Bludgeoning(2), Piercing(3), Slashing(4) *\n");
+                printf("*********************************************************\n");
+                printf(": ");
+                scanf("%d", &iWeaponType);                                                      //Store Input As iWeaponType
+
+                //If input is not within range, give flavour text and store as 0
+                if(iWeaponType < 1 || iWeaponType > 4) {                                        //If iWeaponType Out Of Range
+                    printf("\n********************************************************\n");
+                    printf("* So, you have chosen a useless weapon...Best of luck. *\n");
+                    printf("********************************************************\n");
+                    
+                    iWeaponType = 0;                                                            //Set iWeaponType = 0
+                }    
+                
+                //Encode Weapon Type In iWeaponStats
+                iWeaponStats |= EncodeWeapon(1, iWeaponType);                                   //Or EncodeWeapon Output With iWeaponStats To Overwrite Type Nibble
+
+                //Debug Print Out
+                if(PrintDebug == 1) { 
                 PrintBinary(iWeaponStats);
-                printf("%d",iWeaponStats);
-            }
+                    printf("%d",iWeaponStats);
+                }
+                //*****************WEAPON ELEMENT**********************************************
+                printf("\n\n**************************************************\n");
+                printf("* You notice this weapon is imbued with magic.   *\n");
+                printf("* What natural element does your weapon possess? *\n");
+                printf("**************************************************\n");
+                printf("*    Fire (1)        Ice (2)         Acid (3)    *\n");
+                printf("*    Force(4)     Lightning (5)    Psychic (6)   *\n");
+                printf("**************************************************\n");
+                //printf("*  *");
+                printf(": ");
+                scanf("%d", &iWeaponElement);                                                   //Store Input As iWeaponElement
+
+                //If input is not within range, give flavour text and store as 0
+                if(iWeaponElement < 1 || iWeaponElement > 6) {                                  //If iWeaponElement Out Of Range
+                    printf("\n***************************************************************\n");
+                    printf("* Oh, you must have been mistaken. This weapon is not magical. *\n");
+                    printf("****************************************************************\n");
+                    
+                    iWeaponElement = 0;                                                         //Set iWeaponElement = 0
+                }    
+                
+                //Encode Weapon Element In iWeaponStats
+                iWeaponStats |= EncodeWeapon(2, iWeaponElement);                                //Or EncodeWeapon Output With iWeaponStats To Overwrite Element Nibble
+
+                //Debug Print Out
+                if(PrintDebug == 1) {
+                PrintBinary(iWeaponStats);
+                    printf("%d",iWeaponStats);
+                }
+                
+                //******************WEAPON ATTRIBUTE********************************************
+                printf("\n\n********************************************************\n");
+                printf("* When you hold this weapon, you feel                  *\n");
+                printf("********************************************************\n");
+                printf("* Stronger (1)    More Agile (2)          Tougher (3)  *\n");
+                printf("* Smarter (4)     Wiser (5)       More Charismatic (6) *\n");
+                printf("********************************************************\n");
+                printf(": ");
+                scanf("%d", &iWeaponAttribute);                                                 //Store Input As iWeaponAtribute
+                
+                //If input is not within range, give flavour text and store as 0
+                if(iWeaponAttribute < 1 || iWeaponAttribute > 6) {                              //If iWeaponAttribute Out Of Range
+                    printf("\n\n***********************************************\n");
+                    printf("* Huh, it was a fleeting feeling.  How boring. *\n");
+                    printf("************************************************\n");
+                    
+                    iWeaponAttribute = 0;                                                       //Set iWeaponAttribute = 0
+                }
+
+                //Encode Weapon Attriute In iWeaponStats
+                iWeaponStats |= EncodeWeapon(3, iWeaponAttribute);                              //Or EncodeWeapon Output With iWeaponStats To Overwrite Attribute Nibble
+
+                //Debug Print Out
+                if(PrintDebug == 1) {
+                PrintBinary(iWeaponStats);
+                    printf("%d",iWeaponStats);
+                }
+
+                //*******************WEAPON ENCHANTMENT******************************************
+                printf("\n\n**********************************************************************\n");
+                printf("* There appears to be a symbol on the weapon.                        *\n");
+                printf("* What symbol is upon it?                                            *\n");
+                printf("**********************************************************************\n");
+                printf("* Horseshoe (1)           Godly Representation (2)        Dragon (3) *\n");
+                printf("* Outstretched Arms (4)   Spiral Horn (5)             Walrus man (6) *\n");
+                printf("**********************************************************************\n");
+                printf(": ");
+                scanf("%d", &iWeaponEchant);                                                     //Store Input As iWeaponEchant
+                
+                //If input is not within range, give flavour text and store as 0
+                if(iWeaponEchant < 1 || iWeaponEchant > 6) {                                     //If iWeaponEchant Out Of Range
+                    printf("\n***********************************************\n");
+                    printf("* Huh, it was a fleeting feeling.  How boring. *\n");
+                    printf("************************************************\n");
+                    
+                    iWeaponEchant = 0;                                                          //Set iWeaponEchant = 0
+                }
+                
+                
+                //Encode Weapon Enchantment In iWeaponStats
+                iWeaponStats |= EncodeWeapon(4, iWeaponEchant);                                  //Or EncodeWeapon Output With iWeaponStats To Overwrite Enchantment Nibble
+
+                //Debug Printout
+                if(PrintDebug == 1) {
+                    PrintBinary(iWeaponStats);
+                    printf("%d",iWeaponStats);
+                }
+                
+                //******************************************************************************
+                //********************CONFRONTATION WITH THE DRAGON*****************************
+                //******************************************************************************
+                
+                
+                //Flavour text
+                printf("\n\n********************************************************************************\n");
+                printf("* You hold your weapon outstretched towards the dragon.                        *\n");
+                printf("* It looks in your direction, and lunges towards you.                          *\n");
+                printf("* You see an opportunity and sidestep the attack.                              *\n");
+                printf("* As the dragon's head passes, you come down on it with the full might of your *\n");
+                printf("********************************************************************************\n");
+                
+                iFinalOdds = PrintWeapon(iWeaponStats, iWeaponNameLength, cWeapon);
+                //Determination of attack chance of success based on encoded weapon int variable
+                
+                
+                //The final attack resolves, and adventure ends
+                FinalAttack(iFinalOdds);
+                
+                break;
             
-            //******************************************************************************
-            //********************CONFRONTATION WITH THE DRAGON*****************************
-            //******************************************************************************
+            //****************************************************************************
+            //**********************REPLAY PROMPT AND VARIABLE RESET**********************
+            //****************************************************************************
             
-            
-            //Flavour text
-            printf("\n\n********************************************************************************\n");
-            printf("* You hold your weapon outstretched towards the dragon.                        *\n");
-            printf("* It looks in your direction, and lunges towards you.                          *\n");
-            printf("* You see an opportunity and sidestep the attack.                              *\n");
-            printf("* As the dragon's head passes, you come down on it with the full might of your *\n");
-            printf("********************************************************************************\n");
-            
-            iFinalOdds = PrintWeapon(iWeaponStats, iWeaponNameLength, cWeapon);
-            //Determination of attack chance of success based on encoded weapon int variable
-            
-            
-            //The final attack resolves, and adventure ends
-            FinalAttack(iFinalOdds);
-            
+                case(2):                                                                                //If Array Compare Returned 2 You Die
+                printf("\n\n*****************************************************************\n");
+                printf("* You reach for a weapon and the dragon chomps you. You perish. *\n");
+                printf("*****************************************************************\n\n");
+                break;
+
+                case(3):
+                printf("\n\n*******************************************************************\n");                                                                               //If Array Compare Returns 3 You Die Diffrently
+                printf("* The dragon is disgusted with you. It breathes fire. You perish. *\n");    
+                printf("*******************************************************************\n\n");
+                break;
+                
+                default:                                                                                                        //If Nothing Else Try Again
+                printf("Try Again\n");
+                continue;                                                                                               //Restart Loop
         }
-        
-        //****************************************************************************
-        //**********************REPLAY PROMPT AND VARIABLE RESET**********************
-        //****************************************************************************
-        
-        else if(iActionType == 2) {                                                                                //If Array Compare Returned 2 You Die
-            printf("\n\n*****************************************************************\n");
-            printf("* You reach for a weapon and the dragon chomps you. You perish. *\n");
-            printf("*****************************************************************\n\n");
-        }
-        else if(iActionType == 1) {  
-            printf("\n\n*******************************************************************\n");                                                                               //If Array Compare Returns 3 You Die Diffrently
-            printf("* The dragon is disgusted with you. It breathes fire. You perish. *\n");    
-            printf("*******************************************************************\n\n");
-        }
-        else                                                                                                        //If Nothing Else Try Again
-        {
-            printf("Try Again\n");
-            continue;                                                                                               //Restart Loop
-        }  
 
         //Play again?
         printf("Play again? \tYes (1)\tNo (0)");                                                                    //Ask To Play Again
@@ -320,9 +322,9 @@ int ArrayCompare(char *cArray)
     }
     
     //If match, return result, else return 0 for no match
-    if(iCorrect1 >= 9) return 1;                                        //If iCorrect1 Has 9 or more Chars Matching Return 1
+    if(iCorrect1 >= 9) return 3;                                        //If iCorrect1 Has 9 or more Chars Matching Return 1
     if(iCorrect2 >= 9) return 2;                                        //If iCorrect2 Has 9 or more Chars Matching Return 2
-    if(iCorrect3 >= 8) return 3;                                        //If iCorrect3 Has 9 or more Chars Matching Return 3
+    if(iCorrect3 >= 8) return 1;                                        //If iCorrect3 Has 9 or more Chars Matching Return 3
     else return 0;                                                      //If None Of Them Meet The Requirment Return 0
 }
 
